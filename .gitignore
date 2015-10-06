@@ -1,0 +1,5 @@
+.bundle/
+.idea/
+.ruby-version
+.ruby-gemset
+.rubocop.yml
