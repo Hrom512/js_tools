@@ -1,0 +1,46 @@
+.ajax-popup {
+  display: none;
+  position: fixed;
+  background: #fff;
+  z-index: 901;
+
+  &.center {
+    left: 50%;
+    top: 50%;
+  }
+
+  &.left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.top {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.ajax-popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 900;
+}
