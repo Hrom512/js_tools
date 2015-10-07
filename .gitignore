@@ -1,5 +1,4 @@
 .bundle/
+Gemfile.lock
 .idea/
-.ruby-version
-.ruby-gemset
 .rubocop.yml

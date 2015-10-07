@@ -11,7 +11,9 @@ Gem::Specification.new do |s|
   s.description = s.summary
   s.license     = 'MIT'
 
-  s.files = Dir['{lib}/**/*', 'MIT-LICENSE', 'README.md']
+  s.files = Dir['{app,lib}/**/*', 'Gemfile', 'MIT-LICENSE', 'README.md']
 
   s.add_dependency 'rails', '>= 4.0'
+  s.add_dependency 'coffee-rails'
+  s.add_dependency 'sass-rails'
 end
