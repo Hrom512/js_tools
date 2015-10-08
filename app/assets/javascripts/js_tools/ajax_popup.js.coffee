@@ -3,13 +3,13 @@
   class AjaxPopup
     defaults:
       style: "center"
-      width: 200
-      height: 200
+      width: "200px"
+      height: "200px"
 
       animation_popup: "opacity"
       animation_overlay: "opacity"
       animation_duration: 400
-      animation_easing: "easeOutCubic"
+      animation_easing: "linear"
 
       disable_page_scroll: true
       hide_on_click_overlay: true
@@ -36,12 +36,21 @@
 
       if @config.width && !(@config.style in ["top", "bottom"])
         @$popup.css({ width: @config.width })
-        @$popup.css({ "margin-left": -@config.width/2 }) if @config.style == "center"
+
       if @config.height && !(@config.style in ["left", "right"])
         @$popup.css({ height: @config.height })
-        @$popup.css({ "margin-top": -@config.height/2 }) if @config.style == "center"
+
+      if @config.style == "center" && @config.width && @config.height
+        @$popup.css({ "margin-left": @_calc_center_margin(@config.width) })
+        @$popup.css({ "margin-top": @_calc_center_margin(@config.height) })
 
       $("body").append(@$overlay, @$popup)
+
+    _calc_center_margin: (size) ->
+      reg = /(\d+)(px|%|em)/ig
+      res = reg.exec(size)
+      num = parseInt(res[1], 10)
+      "-#{num / 2}#{res[2] || 'px'}"
 
     _set_callbacks: ->
       if @config.hide_on_click_overlay
@@ -56,7 +65,7 @@
 
     _hide_scroll: (elem = "body") ->
       if @config.disable_page_scroll
-        $(elem).css({ overflow: "hidden", "padding-right": @_get_scrollbar_width })
+        $(elem).css({ overflow: "hidden", "padding-right": @_get_scrollbar_width(elem) })
 
     _show_scroll: (elem = "body") ->
       if @config.disable_page_scroll
@@ -88,10 +97,10 @@
     _toggle_popup: ->
       animations = {
         opacity: [ { opacity: 0 }, { opacity: 1 } ],
-        left: [ { left: -@config.width }, { left: 0 } ],
-        right: [ { right: -@config.width }, { right: 0 } ],
-        top: [{ top: -@config.height }, { top: 0 } ],
-        bottom: [{ bottom: -@config.height }, { bottom: 0 } ]
+        left: [ { left: "-#{@config.width}" }, { left: 0 } ],
+        right: [ { right: "-#{@config.width}" }, { right: 0 } ],
+        top: [{ top: "-#{@config.height}" }, { top: 0 } ],
+        bottom: [{ bottom: "-#{@config.height}" }, { bottom: 0 } ]
       }
       animation_popup = animations[@config.animation_popup] || @config.animation_popup
       animation_overlay = animations[@config.animation_overlay] || @config.animation_overlay
