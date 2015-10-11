@@ -1,0 +1,10 @@
+.ajax-loader {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6) asset-url("js_tools/ajax_loader.gif") no-repeat 50% 50%;
+  z-index: 10000;
+}
