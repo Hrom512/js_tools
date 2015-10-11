@@ -5,7 +5,7 @@
 Add to Gemfile and install with bundler
 
 ```ruby
-gem 'js_tools'
+gem 'js_tools', github: 'hrom512/js_tools'
 ```
 
 ```bash
