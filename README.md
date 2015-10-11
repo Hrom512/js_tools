@@ -2,7 +2,7 @@
 
 ## Installation
 
-Add to Gemfile and install with bundler
+Add to Gemfile and install with bundler:
 
 ```ruby
 gem 'js_tools', github: 'hrom512/js_tools'
@@ -14,7 +14,7 @@ bundle install
 
 ### AjaxPopup
 
-To use AjaxPopup plugin you need add to `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`
+To use AjaxPopup plugin you need add to `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`:
 
 ```javascript
 //= require jquery
@@ -93,13 +93,13 @@ var popup = $.ajax_popup({
 });
 ```
 
-To use custom animation easing you need add to Gemfile
+To use custom animation easing you need add to Gemfile:
 
 ```ruby
 gem 'jquery-easing-rails'
 ```
 
-And add to `app/assets/javascripts/application.js`
+And add to `app/assets/javascripts/application.js`:
 
 ```javascript
 //= require jquery.easing
@@ -111,3 +111,55 @@ And add to `app/assets/javascripts/application.js`
 * `hide_on_click_overlay` (default = true) - hide popup by click on overlay;
 * `use_ajax_loader` (default = true) - show ajax loader while popup content loading in process;
 * `before_open` - callback, which will be executed after ajax loading and before popup open.
+
+
+### AjaxLoader
+
+To use AjaxLoader plugin you need add to `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`:
+
+```javascript
+//= require jquery
+//= require js_tools/ajax_loader
+```
+
+```css
+*= require js_tools/ajax_loader
+```
+
+Example of using:
+
+```javascript
+$.ajax_loader.show();
+$.ajax({
+    url: '/test',
+    ...
+    complete: function(){
+        $.ajax_loader.hide();
+    }
+});
+```
+
+`$.ajax_loader` is a default AjaxLoader object, which has two methods:
+* `show()` - show AjaxLoader overlay;
+* `hide()` - hide AjaxLoader overlay.
+
+You can also create custom ajax loader for any container. For example, ajax loader for login form:
+
+```javascript
+var ajax_loader = $.create_ajax_loader(name: 'login_form', container: '#login_form');
+$('#login_form').submit(function(){
+    var form = $(this);
+    ajax_loader.show();
+    $.ajax({
+        url: form.attr('action'),
+        type: form.attr('method'),
+        data: form.serialize(),
+        success: function(){
+            alert('Login success');
+        },
+        complete: function(){
+            ajax_loader.hide();
+        }
+    });
+});
+```
